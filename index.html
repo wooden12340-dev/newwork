@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스터디 카페 혼잡도 & 플래너 (Map UI)</title>
+    <!-- 폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Leaflet CSS (무료 지도 라이브러리) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase & Leaflet JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- 배경 지도 -->
+        <div id="map" class="map-container"></div>
+
+        <!-- 왼쪽 사이드바 (UI 패널) -->
+        <aside class="sidebar glass-panel">
+            <header class="sidebar-header">
+                <div class="logo">🗺️ StudyPlanner AI</div>
+                <div class="auth-section">
+                    <button id="login-btn" class="btn primary-btn">GitHub 로그인</button>
+                    <div id="user-profile" class="hidden">
+                        <span id="user-name"></span>
+                        <button id="logout-btn" class="btn text-btn">로그아웃</button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="sidebar-content">
+                <!-- 1. 학교 검색 및 정보 -->
+                <section class="panel-section">
+                    <h2 class="section-title">1. 내 학교 찾기</h2>
+                    <div class="search-box">
+                        <input type="text" id="school-search" placeholder="학교명 검색 (예: 부산고)">
+                        <button id="search-school-btn" class="btn icon-btn">🔍</button>
+                    </div>
+                    
+                    <div id="school-info" class="info-card hidden">
+                        <h3 id="school-name">부산고등학교</h3>
+                        <div class="d-day-badge">
+                            <span class="exam-name">중간고사</span>
+                            <strong class="d-day-count" id="d-day-count">D-15</strong>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. 주변 스터디카페 -->
+                <section class="panel-section">
+                    <h2 class="section-title">2. 주변 스터디카페</h2>
+                    <p class="desc">학교를 선택하면 주변 스터디카페의 혼잡도를 분석합니다.</p>
+                    
+                    <div id="cafe-list" class="cafe-list hidden">
+                        <!-- 카페 아이템 렌더링 -->
+                        <div class="cafe-item">
+                            <div class="cafe-info">
+                                <h4>작심 스터디카페 부산점</h4>
+                                <p>해운대구 우동</p>
+                            </div>
+                            <div class="status-badge safe">여유 🟢</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. 학습 플래너 -->
+                <section class="panel-section planner-section">
+                    <h2 class="section-title">3. D-Day 플래너</h2>
+                    <div id="planner-locked" class="planner-locked">
+                        <p>로그인 후 이용 가능합니다.</p>
+                    </div>
+                    <div id="planner-active" class="planner-active hidden">
+                        <div class="add-task">
+                            <input type="text" id="task-input" placeholder="새로운 학습 목표">
+                            <button id="add-task-btn" class="btn primary-btn">+</button>
+                        </div>
+                        <ul class="task-list" id="task-list">
+                            <li>
+                                <label><input type="checkbox"> <span>수학 1단원 복습</span></label>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </aside>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
